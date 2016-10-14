@@ -1,23 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package my.ChatClient;
 
-/**
- *
- * @author kapteinl
- */
 public class ChatClientUI extends javax.swing.JFrame {
 
     /**
      * Creates new form ChatClientUI
      */
-    public ChatClientUI() {
+    public ChatClientUI(String title) {
+        super(title);
         initComponents();
+        build_User_list();
     }
-
+    
+    public void append_To_Chat_Box(String chat){
+        chatbox.append(chat + "\n");
+    }
+    
+    public void build_User_list(){
+        String[] myStringArray = {"kevin","lars","lars","jasper"};
+        
+        for (String user : myStringArray) {
+            userlist.append(user+"\n");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,6 +68,11 @@ public class ChatClientUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(chatbox);
 
         sendbutton.setText("Send");
+        sendbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                send_Text(evt);
+            }
+        });
 
         userlist.setEditable(false);
         userlist.setColumns(14);
@@ -102,9 +112,14 @@ public class ChatClientUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void send_Text(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_send_Text
+        String chat = chatinput.getText();
+        if(!chat.isEmpty()){
+            append_To_Chat_Box(chat);
+            chatinput.setText("");
+        }
+    }//GEN-LAST:event_send_Text
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -132,7 +147,7 @@ public class ChatClientUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChatClientUI().setVisible(true);
+                new ChatClientUI("japser is gay").setVisible(true);
             }
         });
     }
@@ -148,4 +163,5 @@ public class ChatClientUI extends javax.swing.JFrame {
     private javax.swing.JButton sendbutton;
     private javax.swing.JTextArea userlist;
     // End of variables declaration//GEN-END:variables
+
 }
