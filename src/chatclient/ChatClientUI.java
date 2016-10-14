@@ -1,4 +1,4 @@
-package my.ChatClient;
+package chatclient;
 
 public class ChatClientUI extends javax.swing.JFrame {
 
@@ -8,16 +8,13 @@ public class ChatClientUI extends javax.swing.JFrame {
     public ChatClientUI(String title) {
         super(title);
         initComponents();
-        build_User_list();
     }
     
     public void append_To_Chat_Box(String chat){
         chatbox.append(chat + "\n");
     }
     
-    public void build_User_list(){
-        String[] myStringArray = {"kevin","lars","lars","jasper"};
-        
+    public void build_User_list(String[] myStringArray){
         for (String user : myStringArray) {
             userlist.append(user+"\n");
         }
@@ -73,6 +70,11 @@ public class ChatClientUI extends javax.swing.JFrame {
                 send_Text(evt);
             }
         });
+        sendbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendbuttonActionPerformed(evt);
+            }
+        });
 
         userlist.setEditable(false);
         userlist.setColumns(14);
@@ -119,6 +121,10 @@ public class ChatClientUI extends javax.swing.JFrame {
             chatinput.setText("");
         }
     }//GEN-LAST:event_send_Text
+
+    private void sendbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendbuttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sendbuttonActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
