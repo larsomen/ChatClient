@@ -65,9 +65,9 @@
                   <Component id="chatinput" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="sendbutton" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane3" min="-2" pref="119" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jScrollPane3" pref="119" max="32767" attributes="0"/>
+                  <Component id="sendbutton" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
@@ -82,9 +82,9 @@
                   <Component id="jScrollPane3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="sendbutton" min="-2" max="-2" attributes="0"/>
-                  <Component id="chatinput" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="sendbutton" max="32767" attributes="0"/>
+                  <Component id="chatinput" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
           </Group>
@@ -128,7 +128,8 @@
         <Component class="javax.swing.JTextArea" name="userlist">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="columns" type="int" value="14"/>
+            <Property name="columns" type="int" value="7"/>
+            <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
             <Property name="autoscrolls" type="boolean" value="false"/>
           </Properties>
