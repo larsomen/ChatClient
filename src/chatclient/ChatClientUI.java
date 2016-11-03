@@ -1,7 +1,10 @@
 package chatclient;
 
-public class ChatClientUI extends javax.swing.JFrame {
+import com.sun.glass.events.KeyEvent;
 
+public class ChatClientUI extends javax.swing.JFrame {
+    
+    private static ChatClient chatClient;
     /**
      * Creates new form ChatClientUI
      */
@@ -12,12 +15,6 @@ public class ChatClientUI extends javax.swing.JFrame {
     
     public void append_To_Chat_Box(String chat){
         chatbox.append(chat + "\n");
-    }
-    
-    public void build_User_list(String[] myStringArray){
-        for (String user : myStringArray) {
-            userlist.append(user+"\n");
-        }
     }
     
     /**
@@ -35,8 +32,6 @@ public class ChatClientUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         chatbox = new javax.swing.JTextArea();
         sendbutton = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        userlist = new javax.swing.JTextArea();
         chatinput = new javax.swing.JTextField();
 
         jInternalFrame1.setVisible(true);
@@ -76,12 +71,11 @@ public class ChatClientUI extends javax.swing.JFrame {
             }
         });
 
-        userlist.setEditable(false);
-        userlist.setColumns(7);
-        userlist.setLineWrap(true);
-        userlist.setRows(5);
-        userlist.setAutoscrolls(false);
-        jScrollPane3.setViewportView(userlist);
+        chatinput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                chatinputKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,21 +84,18 @@ public class ChatClientUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
-                    .addComponent(chatinput))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addComponent(sendbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(chatinput, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(sendbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(sendbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -118,14 +109,24 @@ public class ChatClientUI extends javax.swing.JFrame {
     private void send_Text(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_send_Text
         String chat = chatinput.getText();
         if(!chat.isEmpty()){
-            append_To_Chat_Box(chat);
+            chatClient.sendMessage(chat);
             chatinput.setText("");
         }
     }//GEN-LAST:event_send_Text
 
     private void sendbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendbuttonActionPerformed
-        // TODO add your handling code here:
+        // TOD\O add your handling code here
     }//GEN-LAST:event_sendbuttonActionPerformed
+
+    private void chatinputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chatinputKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            String chat = chatinput.getText();
+            if(!chat.isEmpty()){
+                chatClient.sendMessage(chat);
+                chatinput.setText("");
+            }
+        }
+    }//GEN-LAST:event_chatinputKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -150,13 +151,6 @@ public class ChatClientUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ChatClientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ChatClientUI("japser is gay").setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -165,10 +159,8 @@ public class ChatClientUI extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JButton sendbutton;
-    private javax.swing.JTextArea userlist;
     // End of variables declaration//GEN-END:variables
 
 }
