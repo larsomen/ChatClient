@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package chatclient;
 
 import java.io.DataInputStream;
@@ -32,12 +27,13 @@ public class ChatClient implements Runnable {
   
   public static void main(String[] args) {
 
-    // The default port.
-
-    // The default host.
-    String host = JOptionPane.showInputDialog("Host:");
-    int portNumber = Integer.parseInt(JOptionPane.showInputDialog("port:"));
     
+
+    // The vraag host
+    String host = JOptionPane.showInputDialog("Host:");
+    // The vraag port
+    int portNumber = Integer.parseInt(JOptionPane.showInputDialog("port:"));
+    // open gui
     chatClientUI = new ChatClientUI("Super awsome chat");        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -46,7 +42,7 @@ public class ChatClient implements Runnable {
         });
     
     /*
-     * Open a socket on a given host and port. Open input and output streams.
+     * socket open op port en host en streams
      */
     try {
       clientSocket = new Socket(host, portNumber);
@@ -67,13 +63,13 @@ public class ChatClient implements Runnable {
     if (clientSocket != null && os != null && is != null) {
       try {
 
-        /* Create a thread to read from the server. */
+        /* server reader thread */
         new Thread(new ChatClient()).start();
         while (!closed) {
           os.println(inputLine.readLine().trim());
         }
         /*
-         * Close the output stream, close the input stream, close the socket.
+         * allees afsluiten als niet meer nodig is.
          */
         os.close();
         is.close();
@@ -84,20 +80,16 @@ public class ChatClient implements Runnable {
     }
   }
 
-  /*
-   * Create a thread to read from the server. (non-Javadoc)
-   * 
-   * @see java.lang.Runnable#run()
-   */
+  
   public void run() {
     /*
-     * Keep on reading from the socket till we receive "Bye" from the
-     * server. Once we received that then we want to break.
+     * blijf open tot de server zegt dat je moet afsluiten
      */
     
     String responseLine;
     try {
       while ((responseLine = is.readLine()) != null) {
+//      zet text in text box van gui
         chatClientUI.append_To_Chat_Box(responseLine);
         System.out.println(responseLine);
       }
